@@ -1,0 +1,53 @@
+<extension>
+    <modules>
+        <module>
+            <id>Add Decipher Action for PKCS5 files</id>
+            <version>1.0</version>
+            <auto-deploy>true</auto-deploy>
+			<configurations>
+			    <config evaluator="string-compare" condition="DocLibActions">
+			        <actions>
+				         <action id="keensoft-decipher-action" type="javascript">
+				            <param name="function">onActionFormDialog</param>
+				            <param name="itemKind">action</param>
+				            <param name="itemId">keensoft-decipher-action</param>
+				            <param name="mode">create</param>
+				            <param name="destination">{node.nodeRef}</param>
+				            <param name="successMessage">message.action.request.success</param>
+				            <param name="failureMessage">message.action.request.failure</param>
+				            <permissions>
+				                <permission allow="true">Write</permission>
+				            </permissions>
+				            <evaluator>evaluator.doclib.action.cipheredMimetype</evaluator>
+				         </action>
+			        </actions>
+			        <actionGroups>
+			            <actionGroup id="document-browse">
+			                <action index="400" id="keensoft-decipher-action" label="action.decipher" icon="action-decipher" />
+ 			            </actionGroup>
+			            <actionGroup id="document-details">
+			                <action index="400" id="keensoft-decipher-action" label="action.decipher" icon="action-decipher" />
+			            </actionGroup>
+			        </actionGroups>        
+			    </config>
+				 
+				<config evaluator="string-compare" condition="keensoft-decipher-action">
+					<forms>
+						<form>
+							<field-visibility>
+							    <show id="passphrase" />
+							</field-visibility>
+							<appearance>
+							    <field id="passphrase" label-id="prop.password">
+					                <control template="/org/alfresco/components/form/controls/textfield.ftl">
+					                    <control-param name="password">true</control-param>
+					                </control>
+                  			    </field>
+							</appearance>
+						</form>
+					</forms>
+				</config>
+			</configurations>
+        </module>
+    </modules>
+</extension> 
