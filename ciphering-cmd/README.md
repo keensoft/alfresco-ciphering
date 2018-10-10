@@ -18,6 +18,7 @@ usage: java -jar ciphering-cmd-1.0.0.jar --input=c:/temp/file.pkcs5 --output=c:/
 
   --input  FILE  Set encrypted input file.
   --output FILE  Set decrypted output file.
+  
   --secret.key.factory VALUE Factory algorithm, PBKDF2WithHmacSHA256 by default
   --secret.key.spec    VALUE Ciphering algorithm, AES by default
   --cipher.instance    VALUE Cipher Instance type, AES/CBC/PKCS5Padding by default
