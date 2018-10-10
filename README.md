@@ -45,7 +45,10 @@ $ mvn clean package
 
 Configuration
 -------------
-Job can be planified by including following properties in `alfresco-global.properties`
+Ciphering can be configured by including following properties in `alfresco-global.properties`
+
+Refer [https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory](https://docs.oracle.com/javase/8/docs/technotes/guides/security/StandardNames.html#SecretKeyFactory) for options.
+
 ```
 cipher.secret.key.factory
 cipher.secret.key.spec
