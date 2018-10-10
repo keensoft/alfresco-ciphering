@@ -30,7 +30,7 @@ You can install it by copying JAR file to `$ALFRESCO_HOME/modules/platform` and 
 
 There is also one JAR file for Share Web App:
 
-* [repo JAR](https://github.com/keensoft/alfresco-ciphering/releases/download/0.8.0/alfresco-ciphering-share-0.8.0)
+* [share JAR](https://github.com/keensoft/alfresco-ciphering/releases/download/0.8.0/alfresco-ciphering-share-0.8.0)
 
 You can install it by copying JAR file to `$ALFRESCO_HOME/modules/share` and re-starting Alfresco.
 
