@@ -52,13 +52,8 @@ public class CipheringHandler {
         sRandom.nextBytes(iv);
         IvParameterSpec ivspec = new IvParameterSpec(iv);
         
-        SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactory);
-        KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), salt, 10000, 128);
-        SecretKey tmp = factory.generateSecret(spec);
-        SecretKeySpec skey = new SecretKeySpec(tmp.getEncoded(), secretKeySpec);
-        
         Cipher ci = Cipher.getInstance(cipherInstance);
-        ci.init(Cipher.ENCRYPT_MODE, skey, ivspec);
+        ci.init(Cipher.ENCRYPT_MODE, getSecretKeySpec(passphrase, salt), ivspec);
         
         CipherBean cb = new CipherBean();
         cb.setCipher(ci);
@@ -69,22 +64,22 @@ public class CipheringHandler {
         
     }
     
-    public CipherBean getDecipher(String passphrase, byte[] salt, byte[] iv) throws Exception {
-                
+    public Cipher getDecipher(String passphrase, byte[] salt, byte[] iv) throws Exception {
+        
+        Cipher ci = Cipher.getInstance(cipherInstance);
+        ci.init(Cipher.DECRYPT_MODE, getSecretKeySpec(passphrase, salt), new IvParameterSpec(iv));
+        
+        return ci;
+        
+    }
+    
+    private SecretKeySpec getSecretKeySpec(String passphrase, byte[] salt) throws Exception {
+        
         SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactory);
         KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), salt, 10000, 128);
         SecretKey tmp = factory.generateSecret(spec);
         SecretKeySpec skey = new SecretKeySpec(tmp.getEncoded(), secretKeySpec);
-        
-        Cipher ci = Cipher.getInstance(cipherInstance);
-        ci.init(Cipher.DECRYPT_MODE, skey, new IvParameterSpec(iv));
-        
-        CipherBean cb = new CipherBean();
-        cb.setCipher(ci);
-        cb.setSalt(salt);
-        cb.setIv(iv);
-        
-        return cb;
+        return skey;
         
     }
     

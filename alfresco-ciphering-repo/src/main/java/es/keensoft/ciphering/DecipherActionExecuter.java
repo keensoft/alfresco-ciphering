@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
+import javax.crypto.Cipher;
+
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.action.ParameterDefinitionImpl;
 import org.alfresco.repo.action.executer.ActionExecuterAbstractBase;
@@ -17,7 +19,6 @@ import org.alfresco.service.cmr.repository.ContentWriter;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.util.TempFileProvider;
 
-import es.keensoft.ciphering.util.CipherBean;
 import es.keensoft.ciphering.util.CipheringHandler;
 
 public class DecipherActionExecuter extends ActionExecuterAbstractBase {
@@ -46,12 +47,12 @@ public class DecipherActionExecuter extends ActionExecuterAbstractBase {
             in.read(iv);
             
             String passphrase = (String) action.getParameterValue(PARAM_PASSPHRASE);
-            CipherBean ci = cipheringHandler.getDecipher(passphrase, salt, iv);
+            Cipher ci = cipheringHandler.getDecipher(passphrase, salt, iv);
             
             String outputFileName = fileName.substring(0, fileName.lastIndexOf("."));
             File fileOut = TempFileProvider.createTempFile(outputFileName, PKCS5_DEC_PREFIX);
             try (FileOutputStream out = new FileOutputStream(fileOut)){
-                CipheringHandler.processFile(ci.getCipher(), in, out);
+                CipheringHandler.processFile(ci, in, out);
             }
             
             serviceRegistry.getNodeService().setProperty(actionedUponNodeRef, ContentModel.PROP_NAME, outputFileName);

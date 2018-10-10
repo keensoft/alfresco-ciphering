@@ -77,7 +77,7 @@ public class App implements CommandLineRunner {
             System.exit(0);
         }
          
-        System.out.print("Enter your the password: ");
+        System.out.print("Enter your password: ");
         String passphrase = new String(console.readPassword());
         
         try {
