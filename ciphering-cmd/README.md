@@ -5,6 +5,10 @@ Alfresco Ciphering - Command Line Tool
 
 Download jar file from [ciphering-cmd-1.0.0.jar](https://github.com/keensoft/alfresco-ciphering/releases/download/1.0.0/ciphering-cmd-1.0.0.jar)
 
+## Requirements
+
+Java 8 is required.
+
 ## Usage
 
 Deciphering arguments:
@@ -20,6 +24,5 @@ usage: java -jar ciphering-cmd-1.0.0.jar --input=file.pkcs5 --output=file.ext [o
 
 ```
 
-Files are absolute paths.
-
-Deciphering program will prompt you for the password.
+* Files are expressed in absolute paths
+* Deciphering program will prompt you for the password
