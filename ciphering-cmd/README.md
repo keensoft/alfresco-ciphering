@@ -14,7 +14,7 @@ Java 8 is required.
 Deciphering arguments:
 
 ```
-usage: java -jar ciphering-cmd-1.0.0.jar --input=file.pkcs5 --output=file.ext [options]
+usage: java -jar ciphering-cmd-1.0.0.jar --input=c:/temp/file.pkcs5 --output=c:/temp/file.ext [options]
 
   --input  FILE  Set encrypted input file.
   --output FILE  Set decrypted output file.
