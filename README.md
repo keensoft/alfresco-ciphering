@@ -7,7 +7,7 @@ This add-on replaces abandoned *addons* to cipher and decipher files with a pass
 * [alfcrypto](https://github.com/fegorama/alfcrypto)
 * [alfresco-crypt](https://sourceforge.net/projects/alfresco-crypt/) 
 
-The addon creates a new `PKCS5` mime type is added to identify ciphered files. 
+The addon creates a new `PKCS5` mime type to identify ciphered files. 
 
 **License**
 The plugin is licensed under the [LGPL v3.0](http://www.gnu.org/licenses/lgpl-3.0.html). 
