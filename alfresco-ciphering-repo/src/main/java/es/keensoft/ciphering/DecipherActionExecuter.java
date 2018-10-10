@@ -3,15 +3,7 @@ package es.keensoft.ciphering;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.security.spec.KeySpec;
 import java.util.List;
-
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.action.ParameterDefinitionImpl;
@@ -24,6 +16,9 @@ import org.alfresco.service.cmr.repository.ContentReader;
 import org.alfresco.service.cmr.repository.ContentWriter;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.util.TempFileProvider;
+
+import es.keensoft.ciphering.util.CipherBean;
+import es.keensoft.ciphering.util.CipheringHandler;
 
 public class DecipherActionExecuter extends ActionExecuterAbstractBase {
     
@@ -51,18 +46,12 @@ public class DecipherActionExecuter extends ActionExecuterAbstractBase {
             in.read(iv);
             
             String passphrase = (String) action.getParameterValue(PARAM_PASSPHRASE);
-            SecretKeyFactory factory = SecretKeyFactory.getInstance(cipheringHandler.getSecretKeyFactory());
-            KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), salt, 10000, 128);
-            SecretKey tmp = factory.generateSecret(spec);
-            SecretKeySpec skey = new SecretKeySpec(tmp.getEncoded(), cipheringHandler.getSecretKeySpec());
-            
-            Cipher ci = Cipher.getInstance(cipheringHandler.getCipherInstance());
-            ci.init(Cipher.DECRYPT_MODE, skey, new IvParameterSpec(iv));
+            CipherBean ci = cipheringHandler.getDecipher(passphrase, salt, iv);
             
             String outputFileName = fileName.substring(0, fileName.lastIndexOf("."));
             File fileOut = TempFileProvider.createTempFile(outputFileName, PKCS5_DEC_PREFIX);
             try (FileOutputStream out = new FileOutputStream(fileOut)){
-                CipheringHandler.processFile(ci, in, out);
+                CipheringHandler.processFile(ci.getCipher(), in, out);
             }
             
             serviceRegistry.getNodeService().setProperty(actionedUponNodeRef, ContentModel.PROP_NAME, outputFileName);

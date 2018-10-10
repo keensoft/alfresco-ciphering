@@ -1,4 +1,4 @@
-package es.keensoft.ciphering;
+package es.keensoft.ciphering.util;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -68,6 +68,26 @@ public class CipheringHandler {
         return cb;
         
     }
+    
+    public CipherBean getDecipher(String passphrase, byte[] salt, byte[] iv) throws Exception {
+                
+        SecretKeyFactory factory = SecretKeyFactory.getInstance(secretKeyFactory);
+        KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), salt, 10000, 128);
+        SecretKey tmp = factory.generateSecret(spec);
+        SecretKeySpec skey = new SecretKeySpec(tmp.getEncoded(), secretKeySpec);
+        
+        Cipher ci = Cipher.getInstance(cipherInstance);
+        ci.init(Cipher.DECRYPT_MODE, skey, new IvParameterSpec(iv));
+        
+        CipherBean cb = new CipherBean();
+        cb.setCipher(ci);
+        cb.setSalt(salt);
+        cb.setIv(iv);
+        
+        return cb;
+        
+    }
+    
 
     public static void processFile(Cipher ci, InputStream in, OutputStream out) throws Exception {
         byte[] ibuf = new byte[1024];

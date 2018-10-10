@@ -1,4 +1,4 @@
-package es.keensoft.ciphering;
+package es.keensoft.ciphering.util;
 
 import javax.crypto.Cipher;
 

@@ -17,9 +17,12 @@ import org.alfresco.service.cmr.repository.ContentWriter;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.util.TempFileProvider;
 
+import es.keensoft.ciphering.util.CipherBean;
+import es.keensoft.ciphering.util.CipheringHandler;
+
 public class EncipherActionExecuter extends ActionExecuterAbstractBase {
     
-    public static final String ACTION_NAME = "keensoft-encipher-action";
+    public static final String ACTION_NAME = "keensoft-cipher-action";
     public static final String PARAM_PASSPHRASE = "passphrase";
     
     private static String PKCS5_ENC_PREFIX = "PKCS5-ENC-";

@@ -32,7 +32,7 @@
       <property name="cipheringHandler" ref="keensoft-ciphering-handler" />
    </bean>
    
-   <bean id="keensoft-ciphering-handler" class="es.keensoft.ciphering.CipheringHandler">
+   <bean id="keensoft-ciphering-handler" class="es.keensoft.ciphering.util.CipheringHandler">
       <property name="secretKeyFactory" value="${cipher.secret.key.factory}" />
       <property name="secretKeySpec" value="${cipher.secret.key.spec}" />
       <property name="cipherInstance" value="${cipher.instance}" />   
